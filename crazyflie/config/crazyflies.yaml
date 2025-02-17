@@ -1,34 +1,37 @@
-# named list of all robots
+ #named list of all robots
 robots:
-  cf231:
-    enabled: true
-    uri: radio://0/80/2M/E7E7E7E7E7
-    initial_position: [0.0, 0.0, 0.0]
-    type: cf21  # see robot_types
-    # firmware_params:
-    #   kalman:
-    #     pNAcc_xy: 1.0 # default 0.5
-    # firmware_logging:
-    #   enabled: true
-    #   custom_topics:
-    #     topic_name3: 
-    #       frequency: 1
-    #       vars: ["acc.x", "acc.y"]
-  cf5:
+  cf1:
     enabled: false
-    uri: radio://0/80/2M/E7E7E7E705
-    initial_position: [0.0, -0.5, 0.0]
-    type: cf21  # see robot_types
-    # firmware_params:
-    #   kalman:
-    #     pNAcc_xy: 1.0 # default 0.5
-    #firmware_logging:
-    #  custom_topics:
-    #    topic_name3: 
-    #      frequency: 1
-    #      vars: ["acc.x", "acc.y", "acc.z"]
+    uri: radio://0/10/2M/E7E7E7E701
+    initial_position: [0, 0, 0] #[0, -0.3, 0]
+    type: cf21_lighthouse  # see robot_types
+  cf2:
+    enabled: false
+    uri: radio://0/20/2M/E7E7E7E702
+    initial_position: [0,0, 0] #[0,-0.6, 0]
+    type: cf21_lighthouse  # see robot_types
+  cf3:
+    enabled: false
+    uri: radio://0/30/2M/E7E7E7E703
+    initial_position: [0, 0, 0] #[0, 0.3, 0]
+    type: cf21_lighthouse  # see robot_types
+  cf4:
+    enabled: true
+    uri: radio://0/40/2M/E7E7E7E704
+    initial_position: [0, 0, 0]
+    type: cf21_lighthouse  # see robot_types
 # Definition of the various robot types
 robot_types:
+  cf21_lighthouse:
+    motion_capture:
+      enabled: false
+      # only if enabled; see motion_capture.yaml
+      marker: default_single_marker
+      dynamics: default
+    big_quad: false
+    battery:
+      voltage_warning: 3.8  # V
+      voltage_critical: 3.7 # V
   cf21:
     motion_capture:
       enabled: true
@@ -54,7 +57,7 @@ robot_types:
 
   cf21_mocap_deck:
     motion_capture:
-      enabled: true
+      enabled: false
       # only if enabled; see motion_capture.yaml
       marker: mocap_deck
       dynamics: default
@@ -73,19 +76,26 @@ all:
   # robots/drone_name to set per drone)
   firmware_logging:
     enabled: true
-    default_topics:
-     # remove to disable default topic
-      pose:
-        frequency: 10 # Hz
-      status:
+    # default_topics:
+    # # remove to disable default topic
+    #   pose:
+    #     frequency: 1 # Hz
+    #   status:
+    #     frequency: 1 # Hz
+    custom_topics: 
+      status_simple:
         frequency: 1 # Hz
-    #custom_topics:
-    #  topic_name1:
-    #    frequency: 10 # Hz
-    #    vars: ["stateEstimateZ.x", "stateEstimateZ.y", "stateEstimateZ.z", "pm.vbat"]
-    #  topic_name2:
-    #    frequency: 1 # Hz
-    #    vars: ["stabilizer.roll", "stabilizer.pitch", "stabilizer.yaw"]
+        vars: ["pm.vbatMV","supervisor.info"]
+      # ctrltargetZ:
+      #   frequency: 20 # Hz
+      #   vars: ["ctrltargetZ.x","ctrltargetZ.y","ctrltargetZ.z"]
+      pose_simple:
+        frequency: 20 # Hz
+        vars: ["stateEstimateZ.x", "stateEstimateZ.y", "stateEstimateZ.z","stateEstimate.roll","stateEstimate.pitch","stateEstimate.yaw"]
+        # vars: ["stateEstimateZ.x", "stateEstimateZ.y", "stateEstimateZ.z","stateEstimate.qx","stateEstimate.qy","stateEstimate.qz","stateEstimate.qw"] 
+      twist_simple:
+        frequency: 20 # Hz
+        vars: ["stateEstimateZ.vx", "stateEstimateZ.vy", "stateEstimateZ.vz","stateEstimateZ.rateRoll","stateEstimateZ.ratePitch","stateEstimateZ.rateYaw"]
   # firmware parameters for all drones (use robot_types/type_name to set per type, or
   # robots/drone_name to set per drone)
   firmware_params:
