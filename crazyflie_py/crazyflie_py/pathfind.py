@@ -1,5 +1,6 @@
 from PIL import Image, ImageOps
 import numpy as np
+import matplotlib.pyplot as plt
 import random
 
 class treeNode():
@@ -66,7 +67,7 @@ class RRTAlgorithm():
 #end of class method
 
 #load grid
-grid np.load('cspace.npy')
+grid = np.load('cspace.npy')
 start = np.array([100.0, 100.0])
 goal = np.array([700.0, 250.0])
 numIterations = 200
@@ -74,6 +75,30 @@ stepSize = 50
 goalRegion = plt.Circle((goal[0], goal[1]), stepSize, color='b', fill = False)
 
 fig = plt.figure("RRT Algorith")
-plt.
+plt.imshow(grid, cmap='binary')
+plt.plot(start[0],start[1],'ro')
+plt.plot(goal[0],goal[1],'bo')
+ax = fig.gca()
+ax.add_patch(goalRegion)
+plt.xlabel('X-axis $(m)$')
+plt.ylabel('Y-axis $(m)$')
 
 
+'''
+img = Image.open('rrt_obstacles.png')
+
+img = ImageOps.grayscale(img)
+
+np_img = np.array(img)
+np_img = ~np_img
+np_img[np_img > 0] = 1
+plt.set_cmap('binary')
+plt.imshow(np_img)
+
+np.save('rrt_obstacles.npy', np_img)
+
+grid = np.load('rrt_obstacles.npy')
+plt.imshow(grid)
+plt.tight_layout()
+plt.show()
+'''
