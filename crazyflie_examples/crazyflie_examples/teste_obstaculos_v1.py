@@ -23,7 +23,7 @@ import numpy as np
         return True
     else:
         return False'''
-    
+
         
 def main():
     swarm = Crazyswarm()
@@ -31,9 +31,9 @@ def main():
     allcfs = swarm.allcfs
     CFs = allcfs.crazyflies
     pos = np.array(CFs[0].initialPosition)
-    pos = pos + np.array([0,0,0.8])
+    #pos = pos + np.array([0,0,0.8])
     pos2 = pos
-    clock_speed = 4 # H
+    clock_speed = 4 # Hz
 
     pygame.init()
     #pygame.display.set_caption('game base')
@@ -59,8 +59,10 @@ def main():
     flag_pilar = False
 
     prop1 = SimpleProp(0.61, 0.51, 0.82)
-    #prop1.coordinates(0.0, 0.60, 0.0, pos[0], pos[1], pos[2])
-    prop1.coordinates(1.44,0.76, 0.0, pos[0], pos[1], pos[2])
+    prop1.coordinates(0.0, 0.60, 0.0, pos[0], pos[1], pos[2]) #left center
+    #prop1.coordinates(1.44,0.76, 0.0, pos[0], pos[1], pos[2]) # center
+    prop2 = SimpleProp(0.88, 0.09, 2.09)
+    prop2.coordinates(1.3, 1.15, 0.0, pos[0], pos[1], pos[2])
 
 
     while True:
@@ -91,7 +93,7 @@ def main():
                     #timeHelper.sleep(2.0)
 
                 elif event.button == 2:
-                    CFs[0].land(targetHeight=0.86, duration=2.0 + pos[2])
+                    CFs[0].land(targetHeight=0.06, duration=2.0 + pos[2])
                     pos[2] = 0
                     flag = -2*clock_speed
                     yaw = 0
@@ -165,7 +167,7 @@ def main():
         #print(pos)
         #print("yaw = ",yaw*180/np.pi)
         if(flag == 1 and pos[2] >= 0.2):
-            if (prop1.avoidProp(pos2[0], pos2[1], pos2[2])): #prop1.avoidProp(pos2[0], pos2[1], pos2[2])
+            if (prop1.avoidProp(pos2[0], pos2[1], pos2[2]) and prop2.avoidProp(pos2[0], pos2[1], pos2[2])): #prop1.avoidProp(pos2[0], pos2[1], pos2[2])
                 pos = pos2
                 CFs[0].goTo(pos, yaw, 1.5)
                 #last_position = pos

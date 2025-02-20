@@ -1,22 +1,22 @@
  #named list of all robots
 robots:
   cf1:
-    enabled: false
+    enabled: true
     uri: radio://0/10/2M/E7E7E7E701
-    initial_position: [0, 0, 0] #[0, -0.3, 0]
+    initial_position: [-0.36, 0, 0] #[0, -0.3, 0]
     type: cf21_lighthouse  # see robot_types
   cf2:
     enabled: false
     uri: radio://0/20/2M/E7E7E7E702
-    initial_position: [0,0, 0] #[0,-0.6, 0]
+    initial_position: [0, 0, 0] #[0,-0.6, 0]
     type: cf21_lighthouse  # see robot_types
   cf3:
     enabled: false
     uri: radio://0/30/2M/E7E7E7E703
-    initial_position: [0, 0, 0] #[0, 0.3, 0]
+    initial_position: [-0.36, 0, 0] #[0, 0.3, 0]
     type: cf21_lighthouse  # see robot_types
   cf4:
-    enabled: true
+    enabled: false
     uri: radio://0/40/2M/E7E7E7E704
     initial_position: [0, 0, 0]
     type: cf21_lighthouse  # see robot_types

@@ -16,7 +16,7 @@ class SimpleProp:
         self.nearWall2 = [0,0,0]
         self.left_limit = 1.54
         self.back_limit = -0.85
-        self.safe_distance = 0.14
+        self.safe_distance = 0.18
 
 
     def coordinates(self, distance_from_left_side, distance_from_back_side, distance_from_floor, x, y, z):
@@ -152,7 +152,7 @@ class SimpleProp:
         for i in range(3):
             self.pos1[i] = self.pos2[i]
             self.nearWall1[i] = self.nearWall2[i]
-        
-    
-        
-    
+
+###########################################################
+
+
