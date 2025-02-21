@@ -3,7 +3,6 @@
 from pathlib import Path
 
 from crazyflie_py import Crazyswarm
-from crazyflie_py.uav_trajectory import Trajectory
 import numpy as np
 from math import sqrt
 
@@ -14,18 +13,9 @@ def main():
     allcfs = swarm.allcfs
     CFs = allcfs.crazyflies
 
-    #traj1 = Trajectory()
-    #traj1.loadcsv(Path(__file__).parent / 'data/figure8.csv')
-
     TRIALS = 1
     TIMESCALE = 1.0
     nCFs = len(CFs)
-    #for i in range(TRIALS):
-        #for cf in allcfs.crazyflies:
-            #cf.uploadTrajectory(0, 0, traj1)
-
-        #allcfs.takeoff(targetHeight=0.5, duration=2.0)
-
 
     for iCF in range(nCFs):
         keyboard = input("Order: ")

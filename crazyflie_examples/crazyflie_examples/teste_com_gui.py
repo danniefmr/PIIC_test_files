@@ -1,10 +1,12 @@
 from crazyflie_py import Crazyswarm
-from crazyflie_py.uav_trajectory import Trajectory
 from tkinter import *
 from pathlib import Path
 import numpy as np
 from math import sqrt
 
+###       Eixo Z        ###
+
+#O drone sobe 
 def button_click_up():
     print("A ir pra cima")
     global pos
@@ -20,6 +22,7 @@ def button_click_up():
         CFs[0].goTo(pos, 0, 2.0)
         timeHelper.sleep(3)
 
+#O drone desce
 def button_click_down():
     global pos
     global CFs
@@ -31,6 +34,9 @@ def button_click_down():
     CFs[0].goTo(pos, 0, 2.0)
     timeHelper.sleep(3)
 
+###       Eixo X        ###
+
+#O drone vai para a frente
 def button_click_up_arrow(slider_vel):
     global pos
     global CFs
@@ -44,7 +50,7 @@ def button_click_up_arrow(slider_vel):
         CFs[0].goTo(pos, 0, 0.5*i)
     timeHelper.sleep(0.5)
     
-
+#O drone vai para trás
 def button_click_down_arrow(slider_vel):
     print("A ir pra tras")
     global pos
@@ -59,7 +65,9 @@ def button_click_down_arrow(slider_vel):
         CFs[0].goTo(pos, 0, 0.5*i)
     timeHelper.sleep(0.5)
     
+###       Eixo Y        ###
 
+#O drone vai para a esquerda
 def button_click_left_arrow(slider_vel):
     print("A ir pra esquerda")
     global pos
@@ -74,6 +82,8 @@ def button_click_left_arrow(slider_vel):
         CFs[0].goTo(pos, 0, 0.5*i)
     timeHelper.sleep(0.5)
 
+
+#O drone vai para a direita
 def button_click_right_arrow(slider_vel):
     global pos
     global CFs
@@ -87,11 +97,12 @@ def button_click_right_arrow(slider_vel):
         CFs[0].goTo(pos, 0, 0.5*i)
     timeHelper.sleep(0.5)
 
-
+#não funciona
 def button_click_emergency():
     print("Emergency Stop")
     #continuar aqui
-
+    
+###       O drone aterra       ###
 def button_click_land():
     print("A aterrar")
     global pos
@@ -103,6 +114,7 @@ def button_click_land():
     print(pos)
     timeHelper.sleep(3.0)
 
+###       O drone descola       ###
 def button_click_takeoff():
     print("A descolar")
     global pos
@@ -114,6 +126,7 @@ def button_click_takeoff():
             
     timeHelper.sleep(3.0)
 
+###       O drone dirige-se para o centro, mantendo a sua altura       ###
 def button_click_center():
     print("A voltar para o centro")
     global pos
@@ -130,8 +143,8 @@ def button_click_center():
     CFs[0].goTo(pos, 0, dT)
     timeHelper.sleep(0.5)
 
-    #continuar aqui
-
+###       O drone dirige-se para a posição desejada      ###
+###       Nota: Devido às limitações do Tkinter na representação de floats na interface gráfica, as coordenadas estão representadas em decímetros     ###
 def button_click_pos(slider_pos_x,slider_pos_y,slider_pos_z):
     print("Going to x="+str(slider_pos_x*0.1)+" y="+str(slider_pos_y*0.1)+" z="+str(slider_pos_z*0.1))
     global pos
@@ -147,8 +160,6 @@ def button_click_pos(slider_pos_x,slider_pos_y,slider_pos_z):
     dT = dist*4
     if(dT < 1):
         dT=1
-    #placa pos 
-
 
     pos[0] = slider_pos_x*0.1
     pos[1] = slider_pos_y*0.1
@@ -156,6 +167,7 @@ def button_click_pos(slider_pos_x,slider_pos_y,slider_pos_z):
     CFs[0].goTo(pos, 0, dT)
     timeHelper.sleep(0.5)
 
+###       O drone dirige-se para a prateleira do meio da mesa     ###
 def button_click_middle_table():
     global pos
     global CFs 
@@ -199,6 +211,7 @@ def button_click_middle_table():
     CFs[0].land(targetHeight=0.55, duration=0.5)
     timeHelper.sleep(3.0)
     
+###       O drone sai da prateleira da mesa e dirige-se para a posição central da mesa   ###
 def button_click_exit_middle_table():
     global pos
     global CFs 
@@ -206,7 +219,7 @@ def button_click_exit_middle_table():
     global in_table
     if(in_table == 1):
         CFs[0].takeoff(targetHeight=0.55, duration=1)
-        pos = pos + np.array([0.1, 1.15, 0.6])
+        pos = pos + np.array([0.1, 1.15, 0.55])
         
         timeHelper.sleep(0.5)
         
@@ -217,6 +230,7 @@ def button_click_exit_middle_table():
 
         pos[0] = CFs[0].initialPosition[0]
         pos[1] = CFs[0].initialPosition[1]
+        pos[2] = 0.55
 
         CFs[0].goTo(pos, 0, dT)
         timeHelper.sleep(0.5)

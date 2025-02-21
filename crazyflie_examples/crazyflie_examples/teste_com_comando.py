@@ -75,15 +75,15 @@ def main():
                 #print(event)
             if event.type == JOYAXISMOTION:
                 #print(event)
-                if event.axis == 0:
-                    vary = event.value
-                if event.axis == 1:
-                    varx = event.value
-                if event.axis == 4:
-                    varz = event.value
                 if event.axis == 3:
+                    vary = event.value
+                if event.axis == 4:
+                    varx = event.value
+                if event.axis == 1:
+                    varz = event.value
+                if event.axis == 0:
                     varyaw = event.value
-                
+                    
                 #if event.axis == 0: 
                 #    print(pos)
                  #   CFs[0].goTo(pos, 0, 2.0)
